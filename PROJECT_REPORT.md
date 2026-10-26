@@ -1,7 +1,6 @@
 # Project Report: Noise-Robust Hybrid Music Recommendation System
 
 **Topic:** Noise-Robust Hybrid Music Recommendation System Using Audio Signal Processing Features, Collaborative Filtering and Deep Learning  
-**Author:** Neel  
 **Date:** October 2026  
 
 ---

@@ -58,12 +58,10 @@ def create_report_docx(output_path):
     r_sub.font.italic = True
     r_sub.font.color.rgb = RGBColor(71, 85, 105)
 
-    meta_table = doc.add_table(rows=2, cols=2)
+    meta_table = doc.add_table(rows=1, cols=2)
     meta_table.alignment = WD_TABLE_ALIGNMENT.CENTER
-    meta_table.rows[0].cells[0].paragraphs[0].add_run("Author: Neel").font.bold = True
-    meta_table.rows[0].cells[1].paragraphs[0].add_run("Domain: Music Information Retrieval & RecSys")
-    meta_table.rows[1].cells[0].paragraphs[0].add_run("Date: October 2026")
-    meta_table.rows[1].cells[1].paragraphs[0].add_run("Status: Final Project Report")
+    meta_table.rows[0].cells[0].paragraphs[0].add_run("Domain: Music Information Retrieval & RecSys")
+    meta_table.rows[0].cells[1].paragraphs[0].add_run("Date: October 2026")
     
     for row in meta_table.rows:
         for cell in row.cells:
