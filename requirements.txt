@@ -47,3 +47,4 @@ tqdm==4.70.1
 typing_extensions==4.16.0
 tzdata==2026.5
 urllib3==2.8.0
+streamlit>=1.66.0
