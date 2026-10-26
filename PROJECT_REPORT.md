@@ -67,6 +67,9 @@ We evaluated three critical operational regimes:
 - **10 dB SNR:** Moderate recording interference.
 - **0 dB SNR:** Extreme challenge condition ($P_{\text{noise}} = P_{\text{signal}}$).
 
+![Figure 1: Clean vs. 0 dB Noisy Mel-Spectrogram](results/spectrogram_clean_vs_noisy.png)
+*Figure 1: Mel-Spectrogram comparison for `blues.00000.wav`. Clean audio exhibits distinct harmonic striations and vocal formants; 0 dB noise floods high frequencies, masking timbre.*
+
 ---
 
 ## 3. Methodology & System Architecture
@@ -122,6 +125,9 @@ Using `librosa`, each 30-second audio track is summarized into a 17-dimensional 
    $$\text{ZCR} = \frac{1}{2(T-1)} \sum_{t=1}^{T-1} |\text{sgn}(y[t]) - \text{sgn}(y[t-1])|$$
 5. **Mel-Frequency Cepstral Coefficients (13 features):** Captures the timbral envelope using 13 Mel-scale filterbanks followed by Discrete Cosine Transform (DCT).
 
+![Figure 2: 17-Dimensional Feature Distortion and Neural Inversion](results/feature_distortion_shift.png)
+*Figure 2: Shift in standardized acoustic dimensions under 0 dB noise (red) and recovery via the Neural MLP (green) compared against clean ground truth (blue).*
+
 ### 3.2 Deep Learning Denoising Architectures
 
 #### Architecture A: Multi-Layer Perceptron (MLP) Feature Mapper
@@ -171,6 +177,9 @@ Score merging by raw summation causes Collaborative Filtering magnitudes to domi
 | **Pink Noise 0 dB (Unseen / Zero-Shot)** | 0.109 | 0.111 | **0.117** | 0.102 |
 | *Random Guessing Baseline* | *~0.050* | *~0.050* | *~0.050* | *~0.050* |
 
+![Figure 3: Benchmark Recall@10 Across Noise Environments](results/benchmark_recall_comparison.png)
+*Figure 3: Recall@10 comparison across experimental conditions. The Neural MLP restores 80.3% of lost accuracy at 0 dB white noise and demonstrates superior generalization on unseen pink noise.*
+
 ### 4.3 Key Findings & Discussion
 
 1. **Catastrophic Feature Distortion under Noise:**
@@ -179,6 +188,9 @@ Score merging by raw summation causes Collaborative Filtering magnitudes to domi
    The 3-layer MLP recovers the score to **0.114** under 0 dB white noise, restoring **80.3% of lost accuracy**. Because additive noise shifts the acoustic manifold in a structured manner, the non-linear layers successfully learn the inverse mapping.
 3. **Generalization to Unseen Noise Distributions:**
    When tested on pink noise *never seen during training*, the **Neural MLP achieved 0.117**, whereas the **CNN Autoencoder degraded to 0.102**. The CNN overfitted to 2D white noise spectrogram textures, while the MLP's compact 17-dimensional representation generalized more robustly across unseen noise spectra.
+
+![Figure 4: Performance Degradation and Deep Learning Noise Resilience](results/snr_degradation_curve.png)
+*Figure 4: Recommendation accuracy as a function of SNR. While raw audio degrades rapidly toward random guessing, the Deep Learning MLP maintains stable recall.*
 
 ---
 
